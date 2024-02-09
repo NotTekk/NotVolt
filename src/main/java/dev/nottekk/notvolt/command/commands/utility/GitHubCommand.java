@@ -1,6 +1,8 @@
 package dev.nottekk.notvolt.command.commands.utility;
 
+import dev.nottekk.notvolt.Bot;
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -18,8 +20,12 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GitHubCommand implements Command {
+
+    private static final Logger LOGGER = LoggerManager.getLogger(Bot.class);
     @Override
     public void execute(MessageReceivedEvent event, List<String> context) {
         String msg = context.get(1);
@@ -58,7 +64,7 @@ public class GitHubCommand implements Command {
             Response response = caller.newCall(request).execute();
             return new JSONObject(response.body().string());
         } catch (IOException | NullPointerException | JSONException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "[ERROR]", e);
             return null;
         }
     }

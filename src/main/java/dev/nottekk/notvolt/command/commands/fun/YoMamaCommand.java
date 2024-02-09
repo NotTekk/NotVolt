@@ -1,6 +1,8 @@
 package dev.nottekk.notvolt.command.commands.fun;
 
+import dev.nottekk.notvolt.Bot;
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -15,9 +17,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class YoMamaCommand implements Command {
 
+    private static final Logger LOGGER = LoggerManager.getLogger(Bot.class);
     @Override
     public void execute(MessageReceivedEvent event, List<String> context) {
         List<User> mentionedUsers = new ArrayList<>();
@@ -65,7 +70,7 @@ public class YoMamaCommand implements Command {
             JSONObject json = new JSONObject(response.body().string());
             return (String) json.get("joke");
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "[ERROR]", e);
             return null;
         }
     }
