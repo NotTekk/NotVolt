@@ -31,9 +31,6 @@ public class CommandManager {
         addCommand(new GifCommand());
         addCommand(new YoMamaCommand());
         addCommand(new GitHubCommand());
-        addCommand(new StartPZServerCommand());
-        addCommand(new StopPZServerCommand());
-        addCommand(new StartPZInstanceCommand());
 
     }
 
