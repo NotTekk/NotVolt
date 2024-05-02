@@ -4,9 +4,7 @@ import dev.nottekk.notvolt.command.Command;
 import dev.nottekk.notvolt.command.commands.fun.GifCommand;
 import dev.nottekk.notvolt.command.commands.fun.YoMamaCommand;
 import dev.nottekk.notvolt.command.commands.pz.StartPZInstanceCommand;
-import dev.nottekk.notvolt.command.commands.utility.GitHubCommand;
-import dev.nottekk.notvolt.command.commands.utility.HelpCommand;
-import dev.nottekk.notvolt.command.commands.utility.PingCommand;
+import dev.nottekk.notvolt.command.commands.utility.*;
 import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -29,11 +27,12 @@ public class ReadyStateListener extends ListenerAdapter {
         List<Command> commands = new ArrayList<>();
 
         commands.add(new PingCommand());
-        commands.add(new StartPZInstanceCommand());
         commands.add(new HelpCommand());
         commands.add(new YoMamaCommand());
         commands.add(new GifCommand());
         commands.add(new GitHubCommand());
+        commands.add(new WhoIsCommand());
+        commands.add(new BotInfoCommand());
 
         List<CommandData> commandData = new ArrayList<>();
         for (Command command : commands) {

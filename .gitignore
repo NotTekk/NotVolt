@@ -36,3 +36,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+*.log
+resources/.env
+.idea/vcs.xml
+.idea/misc.xml

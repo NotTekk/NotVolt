@@ -20,7 +20,8 @@ public class Bot {
     private static final Logger LOGGER = LoggerManager.getLogger(Bot.class);
 
     public static void main(String[] args) {
-        ConfigHandler configHandler = new ConfigHandler(args);
+
+        ConfigHandler configHandler = new ConfigHandler(".env");
         configHandler.load();
 
         LOGGER.info("NotVolt - [STARTING]");

@@ -5,10 +5,8 @@ import dev.nottekk.notvolt.command.commands.fun.GifCommand;
 import dev.nottekk.notvolt.command.commands.fun.YoMamaCommand;
 import dev.nottekk.notvolt.command.commands.pz.StartPZServerCommand;
 import dev.nottekk.notvolt.command.commands.pz.StopPZServerCommand;
-import dev.nottekk.notvolt.command.commands.utility.GitHubCommand;
-import dev.nottekk.notvolt.command.commands.utility.HelpCommand;
+import dev.nottekk.notvolt.command.commands.utility.*;
 import dev.nottekk.notvolt.command.commands.pz.StartPZInstanceCommand;
-import dev.nottekk.notvolt.command.commands.utility.PingCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -31,6 +29,8 @@ public class CommandManager {
         addCommand(new GifCommand());
         addCommand(new YoMamaCommand());
         addCommand(new GitHubCommand());
+        addCommand(new WhoIsCommand());
+        addCommand(new BotInfoCommand());
 
     }
 
