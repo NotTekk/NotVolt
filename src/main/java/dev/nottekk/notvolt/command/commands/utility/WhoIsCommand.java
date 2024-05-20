@@ -1,6 +1,7 @@
 package dev.nottekk.notvolt.command.commands.utility;
 
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -120,5 +121,10 @@ public class WhoIsCommand implements Command {
         desc.put("user", "User");
         res.put(OptionType.USER, desc);
         return res;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.USER;
     }
 }

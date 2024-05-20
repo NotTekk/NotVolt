@@ -1,6 +1,7 @@
 package dev.nottekk.notvolt.command.commands.fun;
 
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -91,5 +92,10 @@ public class GifCommand implements Command {
         desc.put("search-term", "Searches from this input");
         res.put(OptionType.STRING, desc);
         return res;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.USER;
     }
 }

@@ -2,6 +2,7 @@ package dev.nottekk.notvolt.command.commands.fun;
 
 import dev.nottekk.notvolt.Bot;
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -93,6 +94,11 @@ public class YoMamaCommand implements Command {
         desc.put("user", "User");
         res.put(OptionType.USER, desc);
         return res;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.USER;
     }
 
 }

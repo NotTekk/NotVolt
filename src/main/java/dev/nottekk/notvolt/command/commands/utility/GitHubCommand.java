@@ -2,6 +2,7 @@ package dev.nottekk.notvolt.command.commands.utility;
 
 import dev.nottekk.notvolt.Bot;
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -105,5 +106,10 @@ public class GitHubCommand implements Command {
     @Override
     public HashMap<OptionType, HashMap<String, String>> getOptionType() {
         return null;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.USER;
     }
 }

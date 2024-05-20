@@ -1,6 +1,5 @@
 package dev.nottekk.notvolt.listeners;
 
-import dev.nottekk.notvolt.handlers.ConfigHandler;
 import dev.nottekk.notvolt.managers.CommandManager;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -8,7 +7,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class MessageCommandListener extends ListenerAdapter {
 
-    private final CommandManager commandManager = new CommandManager();
+    private final CommandManager commandManager;
+
+    public MessageCommandListener(CommandManager commandManager) {
+        this.commandManager = commandManager;
+    }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -22,13 +25,6 @@ public class MessageCommandListener extends ListenerAdapter {
 
         String raw = event.getMessage().getContentRaw();
         String prefix = raw.startsWith(selfMention) ? selfMention : selfMentionWithNickname;
-
-        if (raw.equalsIgnoreCase(prefix + "shutdown")
-                && user.getId().equals(ConfigHandler.get("OWNER_ID"))) {
-            System.err.println("Shutting down");
-            event.getJDA().shutdown();
-            return;
-        }
 
         if (raw.startsWith(prefix)) {
             commandManager.handleCommand(event, prefix);

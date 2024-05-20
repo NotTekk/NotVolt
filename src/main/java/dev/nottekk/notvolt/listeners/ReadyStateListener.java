@@ -1,10 +1,7 @@
 package dev.nottekk.notvolt.listeners;
 
 import dev.nottekk.notvolt.command.Command;
-import dev.nottekk.notvolt.command.commands.fun.GifCommand;
-import dev.nottekk.notvolt.command.commands.fun.YoMamaCommand;
-import dev.nottekk.notvolt.command.commands.pz.StartPZInstanceCommand;
-import dev.nottekk.notvolt.command.commands.utility.*;
+import dev.nottekk.notvolt.managers.CommandManager;
 import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -19,23 +16,19 @@ import java.util.logging.Logger;
 
 public class ReadyStateListener extends ListenerAdapter {
 
+    private final CommandManager commandManager;
+
+    public ReadyStateListener(CommandManager commandManager) {
+        this.commandManager = commandManager;
+    }
+
     private static final Logger LOGGER = LoggerManager.getLogger(ReadyStateListener.class);
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
         LOGGER.info("Registering Global Slash commands");
-        List<Command> commands = new ArrayList<>();
-
-        commands.add(new PingCommand());
-        commands.add(new HelpCommand());
-        commands.add(new YoMamaCommand());
-        commands.add(new GifCommand());
-        commands.add(new GitHubCommand());
-        commands.add(new WhoIsCommand());
-        commands.add(new BotInfoCommand());
-
         List<CommandData> commandData = new ArrayList<>();
-        for (Command command : commands) {
+        for (Command command : commandManager.getCommands()) {
             if (command.getOptionType() != null && !command.getOptionType().isEmpty()) {
                 List<OptionType> optionTypes = new ArrayList<>(command.getOptionType().keySet());
                 List<String> optionStrings = new ArrayList<>(new ArrayList<>(command.getOptionType().values()).get(0).keySet());

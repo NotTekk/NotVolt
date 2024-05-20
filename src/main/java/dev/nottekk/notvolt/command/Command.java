@@ -1,5 +1,6 @@
 package dev.nottekk.notvolt.command;
 
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -7,7 +8,6 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public interface Command {
 
@@ -21,5 +21,6 @@ public interface Command {
 
     public HashMap<OptionType, HashMap<String, String>> getOptionType();
 
+    public EAccessLevel getCommandLevel();
 
 }

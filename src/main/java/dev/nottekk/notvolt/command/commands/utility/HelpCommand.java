@@ -2,9 +2,9 @@ package dev.nottekk.notvolt.command.commands.utility;
 
 import dev.nottekk.notvolt.builders.CommandEmbedBuilder;
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import dev.nottekk.notvolt.formatters.formats.MessageFormat;
 import dev.nottekk.notvolt.handlers.ConfigHandler;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -57,6 +57,11 @@ public class HelpCommand implements Command {
     @Override
     public HashMap<OptionType, HashMap<String, String>> getOptionType() {
         return null;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.USER;
     }
 
 }

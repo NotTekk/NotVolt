@@ -1,6 +1,7 @@
 package dev.nottekk.notvolt.command.commands.pz;
 
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -24,7 +25,7 @@ public class StopPZServerCommand implements Command {
                 event.getChannel().sendMessage("PZ Server - [ERRO] - A Instancia EC2 nao esta ativa").queue();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
     }
 
@@ -39,7 +40,7 @@ public class StopPZServerCommand implements Command {
                 event.reply("PZ Server - [ERRO] - A Instancia EC2 nao esta ativa").queue();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
     }
 
@@ -117,5 +118,10 @@ public class StopPZServerCommand implements Command {
     @Override
     public HashMap<OptionType, HashMap<String, String>> getOptionType() {
         return null;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.ADMIN;
     }
 }

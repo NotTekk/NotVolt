@@ -4,6 +4,7 @@ import dev.nottekk.notvolt.handlers.ConfigHandler;
 import dev.nottekk.notvolt.listeners.MessageCommandListener;
 import dev.nottekk.notvolt.listeners.ReadyStateListener;
 import dev.nottekk.notvolt.listeners.SlashCommandListener;
+import dev.nottekk.notvolt.managers.CommandManager;
 import dev.nottekk.notvolt.managers.LoggerManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -26,6 +27,8 @@ public class Bot {
 
         LOGGER.info("NotVolt - [STARTING]");
 
+        CommandManager commandManager = new CommandManager();
+
         try {
 
             JDABuilder.createDefault(
@@ -40,9 +43,9 @@ public class Bot {
                     ))
                     .enableCache(CacheFlag.VOICE_STATE)
                     .addEventListeners(
-                            new ReadyStateListener(),
-                            new MessageCommandListener(),
-                            new SlashCommandListener())
+                            new ReadyStateListener(commandManager),
+                            new MessageCommandListener(commandManager),
+                            new SlashCommandListener(commandManager))
                     .setStatus(OnlineStatus.DO_NOT_DISTURB)
                     .setActivity(Activity.watching(ConfigHandler.get("WATCHING")))
                     .build();

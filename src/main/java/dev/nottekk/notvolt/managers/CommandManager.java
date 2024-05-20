@@ -3,10 +3,9 @@ package dev.nottekk.notvolt.managers;
 import dev.nottekk.notvolt.command.Command;
 import dev.nottekk.notvolt.command.commands.fun.GifCommand;
 import dev.nottekk.notvolt.command.commands.fun.YoMamaCommand;
-import dev.nottekk.notvolt.command.commands.pz.StartPZServerCommand;
-import dev.nottekk.notvolt.command.commands.pz.StopPZServerCommand;
 import dev.nottekk.notvolt.command.commands.utility.*;
-import dev.nottekk.notvolt.command.commands.pz.StartPZInstanceCommand;
+import dev.nottekk.notvolt.utils.AccessUtils;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -17,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
+
+import static dev.nottekk.notvolt.utils.AccessUtils.buildAccessResultEmbed;
 
 public class CommandManager {
 
@@ -62,6 +63,7 @@ public class CommandManager {
     }
 
     public void handleCommand(MessageReceivedEvent event, String prefix) {
+        User user = event.getMessage().getAuthor();
         String[] split = event.getMessage().getContentRaw()
                 .replaceFirst("(?i)" + Pattern.quote(prefix), "")
                 .split("\\s+");
@@ -69,20 +71,27 @@ public class CommandManager {
         Command command = this.getCommand(split[1].toLowerCase());
 
         if (command != null) {
-            event.getChannel().sendTyping().queue();
-            command.execute(event, Arrays.asList(split).subList(1, split.length));
+            if (AccessUtils.userHasAccess(user, command)) {
+                event.getChannel().sendTyping().queue();
+                command.execute(event, Arrays.asList(split).subList(1, split.length));
+            } else {
+               event.getChannel().sendMessageEmbeds(AccessUtils.buildAccessResultEmbed(false).build()).queue();
+            }
         }
     }
 
     public void handleCommand(SlashCommandInteractionEvent event) {
+        User user = event.getUser();
         String name = event.getName();
         Optional<Command> commandOptional = Optional.ofNullable(this.getCommand(name));
 
         commandOptional.ifPresent(command -> {
-            List<OptionMapping> options = event.getOptions();
-            command.execute(event, options);
+            if (AccessUtils.userHasAccess(user, command)) {
+                List<OptionMapping> options = event.getOptions();
+                command.execute(event, options);
+            } else {
+                event.replyEmbeds(AccessUtils.buildAccessResultEmbed(false).build()).queue();
+            }
         });
     }
-
-
 }

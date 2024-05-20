@@ -7,7 +7,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class SlashCommandListener extends ListenerAdapter {
 
-    CommandManager commandManager = new CommandManager();
+    private final CommandManager commandManager;
+
+    public SlashCommandListener(CommandManager commandManager) {
+        this.commandManager = commandManager;
+    }
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {

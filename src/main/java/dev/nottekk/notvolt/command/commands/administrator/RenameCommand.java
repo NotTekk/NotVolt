@@ -1,6 +1,7 @@
 package dev.nottekk.notvolt.command.commands.administrator;
 
 import dev.nottekk.notvolt.command.Command;
+import dev.nottekk.notvolt.utils.EAccessLevel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -13,7 +14,8 @@ public class RenameCommand implements Command {
 
     @Override
     public void execute(MessageReceivedEvent event, List<String> context) {
-
+        if (!context.isEmpty()) {
+        }
     }
 
     @Override
@@ -34,5 +36,10 @@ public class RenameCommand implements Command {
     @Override
     public HashMap<OptionType, HashMap<String, String>> getOptionType() {
         return null;
+    }
+
+    @Override
+    public EAccessLevel getCommandLevel() {
+        return EAccessLevel.OWNER;
     }
 }
